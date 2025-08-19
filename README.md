@@ -54,6 +54,8 @@ A social reading app that helps users discover books, track their reading progre
 - npm or yarn
 - iOS Simulator (for iOS) or Android Emulator (for Android)
 - Expo Go app (for testing on physical devices)
+- Xcode (for iOS development)
+- Android Studio (for Android development)
 
 ## Installation
 
@@ -70,15 +72,31 @@ A social reading app that helps users discover books, track their reading progre
    yarn install
    ```
 
-3. Start the development server:
+3. Running the app:
+
+   ### Development Mode (using Expo Go)
    ```bash
    npx expo start
    ```
-
-4. Run on your preferred platform:
+   Then:
    - Press `i` for iOS simulator
    - Press `a` for Android emulator
    - Scan QR code with Expo Go app for physical devices
+
+   ### Native Build (recommended for testing native features)
+   ```bash
+   # For iOS
+   npx expo run:ios
+   # or specific device
+   npx expo run:ios --device
+
+   # For Android
+   npx expo run:android
+   ```
+
+   Note: Native builds require additional setup:
+   - iOS: Xcode and CocoaPods installed
+   - Android: Android Studio, JDK, and Android SDK installed
 
 ## Project Structure
 
