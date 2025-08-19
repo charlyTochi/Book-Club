@@ -59,7 +59,7 @@ A social reading app that helps users discover books, track their reading progre
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/BookClubApp.git
+   git clone https://github.com/charlyTochi/Book-Club.git
    cd BookClubApp
    ```
 
@@ -148,4 +148,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 - Design inspiration from Goodreads and other reading apps
 - Mock data based on popular books
-- Icons from Expo Vector Icons 
+- Icons from Expo Vector Icons
