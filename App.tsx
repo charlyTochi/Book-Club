@@ -5,9 +5,10 @@ import { StatusBar } from 'react-native';
 import { enableScreens } from 'react-native-screens';
 import { useStore } from './src/store';
 import Navigation from './src/navigation';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
-// Enable native screens for better performance
-enableScreens();
+// Enable native screens and screen orientation
+enableScreens(true);
 
 export default function App() {
   const initialize = useStore(state => state.initialize);
@@ -22,11 +23,13 @@ export default function App() {
   }
 
   return (
-    <SafeAreaProvider>
-      <StatusBar barStyle="dark-content" />
-      <NavigationContainer>
-        <Navigation />
-      </NavigationContainer>
-    </SafeAreaProvider>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <SafeAreaProvider>
+        <StatusBar barStyle="dark-content" />
+        <NavigationContainer>
+          <Navigation />
+        </NavigationContainer>
+      </SafeAreaProvider>
+    </GestureHandlerRootView>
   );
 }

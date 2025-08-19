@@ -47,6 +47,7 @@ const MainTabs = () => {
         },
         tabBarActiveTintColor: '#6200ee',
         tabBarInactiveTintColor: 'gray',
+        tabBarHideOnKeyboard: true,
       })}
     >
       <Tab.Screen 
@@ -80,16 +81,38 @@ const MainTabs = () => {
 
 const Navigation = () => {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator
+      screenOptions={{
+        animation: 'slide_from_right',
+        headerBackTitleVisible: false,
+        headerTitleAlign: 'center',
+      }}
+    >
       <Stack.Screen 
         name="Main" 
         component={MainTabs}
         options={{ headerShown: false }}
       />
-      <Stack.Screen name="BookDetails" component={BookDetailsScreen} />
-      <Stack.Screen name="ClubDetails" component={ClubDetailsScreen} />
-      <Stack.Screen name="CreateReview" component={CreateReviewScreen} />
-      <Stack.Screen name="Settings" component={SettingsScreen} />
+      <Stack.Screen 
+        name="BookDetails" 
+        component={BookDetailsScreen}
+        options={{ title: 'Book Details' }}
+      />
+      <Stack.Screen 
+        name="ClubDetails" 
+        component={ClubDetailsScreen}
+        options={{ title: 'Club Details' }}
+      />
+      <Stack.Screen 
+        name="CreateReview" 
+        component={CreateReviewScreen}
+        options={{ title: 'Write a Review' }}
+      />
+      <Stack.Screen 
+        name="Settings" 
+        component={SettingsScreen}
+        options={{ title: 'Settings' }}
+      />
     </Stack.Navigator>
   );
 };
