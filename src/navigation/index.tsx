@@ -1,5 +1,4 @@
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
@@ -79,20 +78,20 @@ const MainTabs = () => {
   );
 };
 
-export const Navigation = () => {
+const Navigation = () => {
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen 
-          name="Main" 
-          component={MainTabs}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen name="BookDetails" component={BookDetailsScreen} />
-        <Stack.Screen name="ClubDetails" component={ClubDetailsScreen} />
-        <Stack.Screen name="CreateReview" component={CreateReviewScreen} />
-        <Stack.Screen name="Settings" component={SettingsScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <Stack.Navigator>
+      <Stack.Screen 
+        name="Main" 
+        component={MainTabs}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen name="BookDetails" component={BookDetailsScreen} />
+      <Stack.Screen name="ClubDetails" component={ClubDetailsScreen} />
+      <Stack.Screen name="CreateReview" component={CreateReviewScreen} />
+      <Stack.Screen name="Settings" component={SettingsScreen} />
+    </Stack.Navigator>
   );
-}; 
+};
+
+export default Navigation; 

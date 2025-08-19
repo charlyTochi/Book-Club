@@ -9,9 +9,10 @@ interface BookCardProps {
   book: Book;
   onPress?: () => void;
   style?: object;
+  horizontal?: boolean;
 }
 
-export const BookCard: React.FC<BookCardProps> = ({ book, onPress, style }) => {
+export const BookCard: React.FC<BookCardProps> = ({ book, onPress, style, horizontal = false }) => {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
@@ -35,8 +36,18 @@ export const BookCard: React.FC<BookCardProps> = ({ book, onPress, style }) => {
     : 0;
 
   return (
-    <Pressable onPress={handlePress} style={[styles.container, style]}>
-      <View style={styles.coverContainer}>
+    <Pressable 
+      onPress={handlePress} 
+      style={[
+        styles.container,
+        horizontal ? styles.containerHorizontal : styles.containerVertical,
+        style
+      ]}
+    >
+      <View style={[
+        styles.coverContainer,
+        horizontal ? styles.coverContainerHorizontal : styles.coverContainerVertical
+      ]}>
         {isLoading && (
           <View style={styles.loadingContainer}>
             <ActivityIndicator size="small" color="#6200ee" />
@@ -59,7 +70,10 @@ export const BookCard: React.FC<BookCardProps> = ({ book, onPress, style }) => {
           resizeMode="cover"
         />
       </View>
-      <View style={styles.info}>
+      <View style={[
+        styles.info,
+        horizontal ? styles.infoHorizontal : styles.infoVertical
+      ]}>
         <Text style={styles.title} numberOfLines={2}>
           {book.title}
         </Text>
@@ -70,6 +84,15 @@ export const BookCard: React.FC<BookCardProps> = ({ book, onPress, style }) => {
           <Text style={styles.rating}>★ {rating}</Text>
           <Text style={styles.reviews}>({reviewCount})</Text>
         </View>
+        {!horizontal && book.genres && book.genres.length > 0 && (
+          <View style={styles.genreContainer}>
+            {book.genres.slice(0, 2).map((genre, index) => (
+              <Text key={index} style={styles.genre}>
+                {genre}
+              </Text>
+            ))}
+          </View>
+        )}
       </View>
     </Pressable>
   );
@@ -80,7 +103,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderRadius: 12,
     overflow: 'hidden',
-    width: 160,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -90,11 +112,25 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 3,
   },
+  containerHorizontal: {
+    width: 160,
+  },
+  containerVertical: {
+    flexDirection: 'row',
+    width: '100%',
+    marginBottom: 16,
+  },
   coverContainer: {
     position: 'relative',
+    backgroundColor: '#f5f5f5',
+  },
+  coverContainerHorizontal: {
     width: '100%',
     height: 200,
-    backgroundColor: '#f5f5f5',
+  },
+  coverContainerVertical: {
+    width: 100,
+    height: 150,
   },
   cover: {
     width: '100%',
@@ -125,6 +161,12 @@ const styles = StyleSheet.create({
   info: {
     padding: 12,
   },
+  infoHorizontal: {
+    width: '100%',
+  },
+  infoVertical: {
+    flex: 1,
+  },
   title: {
     fontSize: 16,
     fontWeight: '600',
@@ -139,6 +181,7 @@ const styles = StyleSheet.create({
   ratingContainer: {
     flexDirection: 'row',
     alignItems: 'center',
+    marginBottom: 8,
   },
   rating: {
     fontSize: 14,
@@ -149,5 +192,18 @@ const styles = StyleSheet.create({
   reviews: {
     fontSize: 14,
     color: '#666',
+  },
+  genreContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 4,
+  },
+  genre: {
+    fontSize: 12,
+    color: '#666',
+    backgroundColor: '#f0f0f0',
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderRadius: 12,
   },
 }); 

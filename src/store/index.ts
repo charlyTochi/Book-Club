@@ -26,7 +26,7 @@ interface AppState {
   updateReadingProgress: (userId: string, bookId: string, status: 'not-started' | 'in-progress' | 'completed') => void;
 }
 
-export const useStore = create<AppState>((set, get) => ({
+export const useStore = create<AppState>()((set, get) => ({
   // Initial state
   books: [],
   users: [],
@@ -93,47 +93,47 @@ export const useStore = create<AppState>((set, get) => ({
   },
 
   // Actions
-  setBooks: (books) => {
+  setBooks: (books: Book[]) => {
     set({ books });
     storage.saveBooks(books);
   },
 
-  setUsers: (users) => {
+  setUsers: (users: User[]) => {
     set({ users });
     storage.saveUsers(users);
   },
 
-  setBookClubs: (clubs) => {
+  setBookClubs: (clubs: BookClub[]) => {
     set({ bookClubs: clubs });
     storage.saveBookClubs(clubs);
   },
 
-  setReviews: (reviews) => {
+  setReviews: (reviews: Review[]) => {
     set({ reviews });
     storage.saveReviews(reviews);
   },
 
-  setCurrentUser: (user) => {
+  setCurrentUser: (user: User | null) => {
     set({ currentUser: user });
     storage.saveCurrentUser(user);
   },
 
-  addReview: (review) => {
+  addReview: (review: Review) => {
     const newReviews = [...get().reviews, review];
     set({ reviews: newReviews });
     storage.saveReviews(newReviews);
   },
 
-  joinBookClub: (userId, clubId) => {
+  joinBookClub: (userId: string, clubId: string) => {
     const { bookClubs, users } = get();
     
-    const newBookClubs = bookClubs.map(club =>
+    const newBookClubs = bookClubs.map((club: BookClub) =>
       club.id === clubId
         ? { ...club, members: [...club.members, userId] }
         : club
     );
 
-    const newUsers = users.map(user =>
+    const newUsers = users.map((user: User) =>
       user.id === userId
         ? { ...user, joinedClubs: [...user.joinedClubs, clubId] }
         : user
@@ -144,18 +144,18 @@ export const useStore = create<AppState>((set, get) => ({
     storage.saveUsers(newUsers);
   },
 
-  leaveBookClub: (userId, clubId) => {
+  leaveBookClub: (userId: string, clubId: string) => {
     const { bookClubs, users } = get();
     
-    const newBookClubs = bookClubs.map(club =>
+    const newBookClubs = bookClubs.map((club: BookClub) =>
       club.id === clubId
-        ? { ...club, members: club.members.filter(id => id !== userId) }
+        ? { ...club, members: club.members.filter((id: string) => id !== userId) }
         : club
     );
 
-    const newUsers = users.map(user =>
+    const newUsers = users.map((user: User) =>
       user.id === userId
-        ? { ...user, joinedClubs: user.joinedClubs.filter(id => id !== clubId) }
+        ? { ...user, joinedClubs: user.joinedClubs.filter((id: string) => id !== clubId) }
         : user
     );
 
@@ -164,10 +164,10 @@ export const useStore = create<AppState>((set, get) => ({
     storage.saveUsers(newUsers);
   },
 
-  updateReadingProgress: (userId, bookId, status) => {
+  updateReadingProgress: (userId: string, bookId: string, status: 'not-started' | 'in-progress' | 'completed') => {
     const { users, currentUser } = get();
     
-    const newUsers = users.map(user => {
+    const newUsers = users.map((user: User) => {
       if (user.id !== userId) return user;
 
       // Initialize arrays if they don't exist
@@ -176,8 +176,8 @@ export const useStore = create<AppState>((set, get) => ({
       const myBooks = user.myBooks || [];
 
       // Remove the book from both arrays first
-      const filteredBooksRead = booksRead.filter(id => id !== bookId);
-      const filteredCurrentlyReading = currentlyReading.filter(id => id !== bookId);
+      const filteredBooksRead = booksRead.filter((id: string) => id !== bookId);
+      const filteredCurrentlyReading = currentlyReading.filter((id: string) => id !== bookId);
 
       // Ensure book is in myBooks array
       const updatedMyBooks = myBooks.includes(bookId) ? myBooks : [...myBooks, bookId];
@@ -211,7 +211,7 @@ export const useStore = create<AppState>((set, get) => ({
     });
 
     // Update both the users array and the currentUser
-    const newCurrentUser = newUsers.find(user => user.id === currentUser?.id) || currentUser;
+    const newCurrentUser = newUsers.find((user: User) => user.id === currentUser?.id) || currentUser;
     
     set({ 
       users: newUsers,
