@@ -1,20 +1,9 @@
-# Node.js
-node_modules/
+# OSX
+.DS_Store
 
-# Jekyll
-_site/
-.sass-cache/
-.jekyll-cache/
-.jekyll-metadata
-
-# Ruby/bundler
-/vendor
-Gemfile.lock
-
-# React Native
+# Expo
 .expo/
-dist/
-npm-debug.*
+.expo-shared/
 *.jks
 *.p8
 *.p12
@@ -22,3 +11,60 @@ npm-debug.*
 *.mobileprovision
 *.orig.*
 web-build/
+dist/
+
+# Node
+node_modules/
+npm-debug.*
+yarn-debug.*
+yarn-error.*
+
+# Ruby
+vendor/
+.ruby-version
+.ruby-gemset
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# iOS
+ios/
+ios/Pods/
+ios/build/
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
+xcuserdata
+*.xccheckout
+*.moved-aside
+DerivedData
+*.hmap
+*.ipa
+*.xcuserstate
+project.xcworkspace
+
+# Android
+android/
+android/app/build/
+android/build/
+android/gradle/
+android/local.properties
+android/.gradle
+android/.idea
+android/*.iml
+android/.settings
+*.keystore
+!debug.keystore
+
+# Environment variables
+.env
+.env.*
+!.env.example
